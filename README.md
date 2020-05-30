@@ -20,6 +20,10 @@
 
 	cp .env.example .env
 
+生成APP Key
+
+	php artisan key:generate
+
 创建MySQL数据库。
 
 	mysql -u root -p
