@@ -40,9 +40,9 @@
 
 	php artisan serve
 
-通过http://localhost:8000访问网站
+网站访问地址为 http://localhost:8000
 
-后台管理地址为http://localhost:8000/admin
+后台管理地址为 http://localhost:8000/admin
 
 默认已创建一个普通用户，和一个管理员。
 
