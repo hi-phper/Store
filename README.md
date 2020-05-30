@@ -31,6 +31,7 @@
 
 编辑.env文件,根据本地数据库配置情况修改。
 
+	DB_HOST=localhost
 	DB_DATABASE=数据库名称
 	DB_USERNAME=用户名
 	DB_PASSWORD=密码
