@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Book;
-use App\Cart;
+use App\Models\Book;
+use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AddToCartRequest;
 

@@ -2,6 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
+
+use App\Http\Controllers\Admin\AuthorController;
+use App\Http\Controllers\Admin\BookController as AdminBookController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\LoginController as AdminLoginController;
+use App\Http\Controllers\Admin\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,24 +23,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'BookController@index')
+Route::get('/', [BookController::class, 'index'])
     ->name('index');
-Route::get('book/{book}', 'BookController@show')
+Route::get('book/{book}', [BookController::class, 'show'])
     ->name('book.show');
 
 # 会员区域
 Route::middleware('auth')->group(function() {
-        Route::get('cart', 'CartController@index')
+        Route::get('cart', [CartController::class, 'index'])
         ->name('cart.index');
-    Route::post('cart', 'CartController@addToCart')
+    Route::post('cart', [CartController::class, 'addToCart'])
         ->name('cart.add');
-    Route::put('cart', 'CartController@update')
+    Route::put('cart', [CartController::class, 'update'])
         ->name('cart.update');
-    Route::get('cart/delete/{id}', 'CartController@delete')
+    Route::get('cart/delete/{id}', [CartController::class, 'delete'])
         ->name('delete_book_from_cart');
 
-    Route::post('order', 'OrderController@store');
-    Route::get('order', 'OrderController@index')
+    Route::post('order', [OrderController::class, 'store']);
+    Route::get('order', [OrderController::class, 'index'])
         ->name('order');
 });
 Auth::routes();
@@ -38,33 +48,32 @@ Auth::routes();
 # 管理员区域
 Route::middleware('admin')
     ->prefix('admin')
-    ->namespace('Admin')
     ->name('admin.')
     ->group(function() {
-        Route::get('/', 'HomeController@index');
+        Route::get('/', [HomeController::class, 'index']);
 
-        Route::resource('author', 'AuthorController')
+        Route::resource('author', AuthorController::class)
             ->except(['show']);
-        Route::put('author', 'AuthorController@index')
+        Route::put('author', [AuthorController::class, 'index'])
             ->name('author.search');
 
-        Route::resource('book', 'BookController')
+        Route::resource('book', AdminBookController::class)
             ->except('show');
-        Route::put('book', 'BookController@index')
+        Route::put('book', [AdminBookController::class, 'index'])
             ->name('book.search');
 
-        Route::resource('user', 'UserController')
+        Route::resource('user', UserController::class)
             ->except(['show']);
-        Route::put('user', 'UserController@index')
+        Route::put('user', [UserController::class, 'index'])
             ->name('user.search');
             
-        Route::get('order', 'OrderController@index')
+        Route::get('order', [AdminOrderController::class, 'index'])
             ->name('order.index');
-        Route::get('order/details/{order}', 'OrderController@details')
+        Route::get('order/details/{order}', [AdminOrderController::class, 'details'])
             ->name('order.details');
-        Route::delete('order/{order}', 'OrderController@destroy')
+        Route::delete('order/{order}', [AdminOrderController::class, 'destroy'])
             ->name('order.destroy');
-        Route::put('order', 'OrderController@index')
+        Route::put('order', [AdminOrderController::class, 'index'])
             ->name('order.search');
 });
  # elfinder
@@ -73,8 +82,8 @@ Route::middleware('admin')
     ->group(function() {
         Route::get('/elfinder/popup', '\Barryvdh\Elfinder\ElfinderController@showPopup');
 });
-Route::get('/admin/login', 'Admin\LoginController@showLoginForm')
+Route::get('/admin/login', [AdminLoginController::class, 'showLoginForm'])
     ->name('admin.login');
-Route::post('/admin/login', 'Admin\LoginController@login');
-Route::post('/admin/logout', 'Admin\LoginController@logout')
+Route::post('/admin/login', [AdminLoginController::class, 'login']);
+Route::post('/admin/logout', [AdminLoginController::class, 'logout'])
     ->name('admin.logout');

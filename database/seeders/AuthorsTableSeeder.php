@@ -1,7 +1,9 @@
 <?php
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Author;
+use App\Models\Author;
+use Illuminate\Support\Facades\DB;
 
 class AuthorsTableSeeder extends Seeder
 {

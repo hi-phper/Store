@@ -1,7 +1,10 @@
 <?php
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Book;
+use App\Models\Book;
+use Illuminate\Support\Facades\DB;
+
 class BooksTableSeeder extends Seeder
 {
     /**

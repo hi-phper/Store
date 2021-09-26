@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Book;
-use App\Author;
+use App\Models\Book;
+use App\Models\Author;
 use App\Http\Requests\BookCreateRequest;
 use App\Http\Requests\BookEditRequest;
 use App\Lib\ViewState;

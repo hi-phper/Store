@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Author;
+use App\Models\Author;
+use App\Models\Book;
 use App\Http\Requests\AuthorCreateRequest;
 use App\Http\Requests\AuthorEditRequest;
 use App\Lib\ViewState;
@@ -127,7 +128,7 @@ class AuthorController extends Controller
      */
     public function destroy($id)
     {
-        $book_count = \App\Book::where('author_id', $id)->count();
+        $book_count = Book::where('author_id', $id)->count();
         if($book_count > 0) {
             return redirect()->route('admin.author.index')
                 ->with('message', '不允许删除此作者, 有' . $book_count . '本书分配给此作者');

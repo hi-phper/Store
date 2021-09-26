@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\User;
+use App\Models\User;
+use App\Models\Order;
 use App\Http\Requests\AuthorCreateRequest;
 use App\Http\Requests\AuthorEditRequest;
 use Illuminate\Support\Facades\DB;
@@ -61,7 +62,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $order_count = \App\Order::where('member_id', $id)->count();
+        $order_count = Order::where('member_id', $id)->count();
         if($order_count > 0) {
             return redirect()->route('admin.user.index')
                 ->with('message', '不允许删除此用户, 有' . $order_count . '个订单分配给此用户');
